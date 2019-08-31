@@ -4,11 +4,11 @@ import xyz.ivyxjc.coracias.GenericDataType
 import java.time.temporal.TemporalAccessor
 import java.util.*
 
-interface DataTypeStrategy {
+interface CoraciasDataTypeStrategy {
     fun generateType(clz: Class<out Any>): GenericDataType
 }
 
-class DefaultDataTypeStrategy : DataTypeStrategy {
+class DefaultCoraciasDataTypeStrategy : CoraciasDataTypeStrategy {
 
     override fun generateType(clz: Class<out Any>): GenericDataType {
         return when {

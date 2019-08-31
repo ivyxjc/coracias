@@ -2,25 +2,25 @@ package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.GenericDataType
 import xyz.ivyxjc.coracias.getCoraciasFields
-import xyz.ivyxjc.coracias.model.SimpleExportModel
-import xyz.ivyxjc.coracias.model.TableExportModel
-import xyz.ivyxjc.coracias.strategy.ExportInstructions
+import xyz.ivyxjc.coracias.model.CoraciasExportModel
+import xyz.ivyxjc.coracias.model.DefaultCoraciasExportModel
+import xyz.ivyxjc.coracias.strategy.CoraciasInstructions
 import java.lang.reflect.Field
 
 
-interface DataToModel<T : Any> {
-    fun performConvert(list: List<T>, name: String, instructions: ExportInstructions): TableExportModel
+interface CoraciasDataToModel<T : Any> {
+    fun performConvert(list: List<T>, name: String, instructions: CoraciasInstructions): CoraciasExportModel
     fun performConvert(
         list: List<T>,
         name: String,
         columnNames: List<String>?,
-        instructions: ExportInstructions
-    ): TableExportModel
+        instructions: CoraciasInstructions
+    ): CoraciasExportModel
 }
 
-class DefaultDataToModel<T : Any> : DataToModel<T> {
+class DefaultCoraciasDataToModel<T : Any> : CoraciasDataToModel<T> {
 
-    override fun performConvert(list: List<T>, name: String, instructions: ExportInstructions): TableExportModel {
+    override fun performConvert(list: List<T>, name: String, instructions: CoraciasInstructions): CoraciasExportModel {
         return performConvert(list, name, null, instructions)
     }
 
@@ -28,8 +28,8 @@ class DefaultDataToModel<T : Any> : DataToModel<T> {
         list: List<T>,
         name: String,
         columnNames: List<String>?,
-        instructions: ExportInstructions
-    ): TableExportModel {
+        instructions: CoraciasInstructions
+    ): CoraciasExportModel {
         if (list.isEmpty()) {
             throw RuntimeException("DataToModel's source list should not be empty")
         }
@@ -39,7 +39,7 @@ class DefaultDataToModel<T : Any> : DataToModel<T> {
         //if columnNames is not null or empty, calculateColumnNames is equals to columnNames
         val calculateColumnNames = fieldsAndColumnNamesPair.second
 
-        val model = SimpleExportModel(list.size, fields.size)
+        val model = DefaultCoraciasExportModel(list.size, fields.size)
         model.setTableName(name)
         model.setColumnNames(calculateColumnNames.toTypedArray())
 
@@ -53,7 +53,7 @@ class DefaultDataToModel<T : Any> : DataToModel<T> {
     private fun buildRowData(
         data: T,
         fields: List<Field>,
-        instructions: ExportInstructions
+        instructions: CoraciasInstructions
     ): Pair<Array<Any?>, Array<GenericDataType>> {
 
         val a1 = Array<Any?>(fields.size) {
@@ -66,7 +66,7 @@ class DefaultDataToModel<T : Any> : DataToModel<T> {
             val f = fields[i]
             f.isAccessible = true
             a1[i] = f.get(data)
-            a2[i] = instructions.dataTypeStrategy.generateType(f.type)
+            a2[i] = instructions.coraciasDataTypeStrategy.generateType(f.type)
         }
         return Pair(a1, a2)
     }

@@ -2,7 +2,7 @@ package xyz.ivyxjc.coracias.model
 
 import xyz.ivyxjc.coracias.GenericDataType
 
-interface TableExportModel {
+interface CoraciasExportModel {
     fun getTableName(): String
     fun getColumnCount(): Int
     fun getRowCount(): Int
@@ -11,7 +11,7 @@ interface TableExportModel {
     fun getGenericType(rowIndex: Int, columnIndex: Int): GenericDataType
 }
 
-abstract class AbstractModel : TableExportModel {
+abstract class AbstractModel : CoraciasExportModel {
     abstract fun addRow(row: Pair<Array<Any?>, Array<GenericDataType>>)
     abstract fun setTableName(name: String)
     abstract fun setColumnNames(columnNames: Array<String>)
@@ -21,7 +21,7 @@ abstract class AbstractModel : TableExportModel {
 /**
  * Not Thread-Safe
  */
-class SimpleExportModel(private val rowNum: Int, private val columnNum: Int) : AbstractModel() {
+class DefaultCoraciasExportModel(private val rowNum: Int, private val columnNum: Int) : AbstractModel() {
 
     private val data = Array<Array<Any?>>(rowNum) {
         Array(columnNum) {

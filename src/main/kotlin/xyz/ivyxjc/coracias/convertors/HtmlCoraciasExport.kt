@@ -1,14 +1,14 @@
 package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.Constants
-import xyz.ivyxjc.coracias.model.TableExportModel
-import xyz.ivyxjc.coracias.strategy.ExportInstructions
+import xyz.ivyxjc.coracias.model.CoraciasExportModel
+import xyz.ivyxjc.coracias.strategy.CoraciasInstructions
 
-class HtmlDataExport : DataExport {
+class HtmlCoraciasExport : CoraciasExport {
 
-    override fun performConvert(
-        model: TableExportModel,
-        instructions: ExportInstructions
+    override fun performExport(
+        model: CoraciasExportModel,
+        instructions: CoraciasInstructions
     ): String {
         val sb = StringBuilder()
         sb.append("<tr>\n")

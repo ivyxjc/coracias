@@ -21,7 +21,7 @@ dependencies {
 
 
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.3.50'
 
     testImplementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 

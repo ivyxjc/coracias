@@ -19,5 +19,6 @@ class DataEntity {
     @Column(name = "TRADE_DATE")
     lateinit var tradeDate: LocalDateTime
 
+    lateinit var officeCode: String
 
 }

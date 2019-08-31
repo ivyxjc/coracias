@@ -1,5 +1,6 @@
 package xyz.ivyxjc.coracias.models
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -18,6 +19,9 @@ class DataEntity {
 
     @Column(name = "TRADE_DATE")
     lateinit var tradeDate: LocalDateTime
+
+    @Column(name = "CANCEL_DATE")
+    lateinit var cancelDate: LocalDate
 
     lateinit var officeCode: String
 

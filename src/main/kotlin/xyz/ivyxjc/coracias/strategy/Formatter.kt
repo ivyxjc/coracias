@@ -1,4 +1,4 @@
-package xyz.ivyxjc.coracias
+package xyz.ivyxjc.coracias.strategy
 
 import java.text.DateFormat
 import java.text.DecimalFormat

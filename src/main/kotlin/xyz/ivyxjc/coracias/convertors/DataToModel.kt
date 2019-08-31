@@ -4,6 +4,7 @@ import xyz.ivyxjc.coracias.GenericDataType
 import xyz.ivyxjc.coracias.getCoraciasFields
 import xyz.ivyxjc.coracias.model.SimpleExportModel
 import xyz.ivyxjc.coracias.model.TableExportModel
+import xyz.ivyxjc.coracias.strategy.ExportInstructions
 import java.lang.reflect.Field
 
 

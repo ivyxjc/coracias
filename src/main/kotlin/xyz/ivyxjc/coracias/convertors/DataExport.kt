@@ -1,8 +1,8 @@
 package xyz.ivyxjc.coracias.convertors
 
-import xyz.ivyxjc.coracias.CoraciasFormatter
-import xyz.ivyxjc.coracias.DefaultCoraciasFormatter
 import xyz.ivyxjc.coracias.model.TableExportModel
+import xyz.ivyxjc.coracias.strategy.CoraciasFormatter
+import xyz.ivyxjc.coracias.strategy.ExportInstructions
 
 
 interface DataExport {
@@ -13,8 +13,3 @@ interface DataExport {
     ): String
 }
 
-class ExportInstructions {
-    var createHeader = true
-    var formatter = DefaultCoraciasFormatter()
-    var dataTypeStrategy = DefaultDataTypeStrategy()
-}

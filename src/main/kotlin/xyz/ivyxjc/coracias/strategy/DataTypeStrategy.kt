@@ -1,4 +1,4 @@
-package xyz.ivyxjc.coracias.convertors
+package xyz.ivyxjc.coracias.strategy
 
 import xyz.ivyxjc.coracias.GenericDataType
 import java.time.temporal.TemporalAccessor

@@ -1,8 +1,9 @@
 package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.Constants
-import xyz.ivyxjc.coracias.CoraciasFormatter
 import xyz.ivyxjc.coracias.model.TableExportModel
+import xyz.ivyxjc.coracias.strategy.CoraciasFormatter
+import xyz.ivyxjc.coracias.strategy.ExportInstructions
 
 class HtmlDataExport : DataExport {
 

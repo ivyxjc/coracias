@@ -1,3 +1,5 @@
+@file:JvmName("InternalUtils")
+
 package xyz.ivyxjc.coracias
 
 import org.slf4j.LoggerFactory

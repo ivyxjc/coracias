@@ -2,9 +2,10 @@ package xyz.ivyxjc.coracias
 
 import org.junit.Test
 import xyz.ivyxjc.coracias.convertors.DefaultDataToModel
-import xyz.ivyxjc.coracias.convertors.ExportInstructions
 import xyz.ivyxjc.coracias.convertors.HtmlDataExport
 import xyz.ivyxjc.coracias.models.DataEntity
+import xyz.ivyxjc.coracias.strategy.DefaultCoraciasFormatter
+import xyz.ivyxjc.coracias.strategy.ExportInstructions
 
 class HtmlDataExportTest {
     @Test

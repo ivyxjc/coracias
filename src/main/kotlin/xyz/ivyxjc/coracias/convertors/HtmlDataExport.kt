@@ -2,15 +2,13 @@ package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.Constants
 import xyz.ivyxjc.coracias.model.TableExportModel
-import xyz.ivyxjc.coracias.strategy.CoraciasFormatter
 import xyz.ivyxjc.coracias.strategy.ExportInstructions
 
 class HtmlDataExport : DataExport {
 
     override fun performConvert(
         model: TableExportModel,
-        instructions: ExportInstructions,
-        formatter: CoraciasFormatter
+        instructions: ExportInstructions
     ): String {
         val sb = StringBuilder()
         sb.append("<tr>\n")
@@ -28,7 +26,7 @@ class HtmlDataExport : DataExport {
                 var objStr: String? = null
                 val obj = model.getValue(rowIndex, columnIndex)
                 val dataType = model.getGenericType(rowIndex, columnIndex)
-                objStr = formatter.format(obj)
+                objStr = instructions.formatter.format(obj)
                 val isNoWrap = if (objStr == null) false else objStr.length < 100
 
                 sb.append("<td")

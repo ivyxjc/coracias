@@ -9,10 +9,20 @@ import java.time.temporal.TemporalAccessor
 import java.time.temporal.UnsupportedTemporalTypeException
 import java.util.*
 
+
+/**
+ * CoraciasFormatter provides the way for developers to customize the formatter for Java object.
+ */
 interface CoraciasFormatter {
     fun format(obj: Any?): String?
 }
 
+/**
+ * DefaultCoraciasFormatter can correctly format Jsr310 Date or DateTime [TemporalAccessor]
+ * [java.util.Date] and [Number] with default setting based on system's default locale.
+ * The object of other Java type will call the method of Object#toString() to get result.
+ *
+ */
 class DefaultCoraciasFormatter : CoraciasFormatter {
     private val locale = Locale.getDefault()
     var jsr310DateTimeFormatter: DateTimeFormatter =
@@ -43,6 +53,19 @@ class DefaultCoraciasFormatter : CoraciasFormatter {
         }
     }
 
+    override fun format(obj: Any?): String? {
+        if (obj == null) {
+            return null
+        }
+        return when (obj) {
+            is Number -> formatNumber(obj)
+            is TemporalAccessor -> formatJsr310DateTime(obj)
+            is Date -> formatClassicDate(obj)
+            is String -> obj
+            else -> obj.toString()
+        }
+    }
+
     private fun formatNumber(num: Number): String {
         return numberFormat.format(num)
     }
@@ -57,16 +80,6 @@ class DefaultCoraciasFormatter : CoraciasFormatter {
 
     private fun formatClassicDate(date: Date): String {
         return classicDateFormatterTl.get().format(date)
-    }
-
-    override fun format(obj: Any?): String? {
-        return when (obj) {
-            is Number -> formatNumber(obj)
-            is TemporalAccessor -> formatJsr310DateTime(obj)
-            is Date -> formatClassicDate(obj)
-            is String -> obj
-            else -> null
-        }
     }
 
     fun jsr310DateTimeFormatter(dateTimeFormatter: DateTimeFormatter) = apply {

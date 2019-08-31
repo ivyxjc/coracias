@@ -6,7 +6,9 @@ import java.lang.reflect.Field
 import javax.persistence.Column
 import javax.persistence.Entity
 
-
+/**
+ * check whether one java class [clazz] has the annotation typed [Entity] or not
+ */
 fun isJsr338Entity(clazz: Class<*>): Boolean {
     val annotations = clazz.annotations
     annotations.forEach {
@@ -17,6 +19,9 @@ fun isJsr338Entity(clazz: Class<*>): Boolean {
     return false
 }
 
+/**
+ * get all fields that have the annotation [annClz] in class [dataClz]
+ */
 fun getFieldsByAnnotation(dataClz: Class<*>, annClz: Class<out Annotation>): List<Field> {
     val res = mutableListOf<Field>()
     val fields = dataClz.declaredFields
@@ -30,6 +35,11 @@ fun getFieldsByAnnotation(dataClz: Class<*>, annClz: Class<out Annotation>): Lis
     return res
 }
 
+/**
+ * Sort the fields by its name based on the [columnNames].
+ * If the name of the field is not in [columnNames], the field will not be in the result.
+ * If the name in [columnNames] does not match any field's name, coracias will throw one [RuntimeException]
+ */
 fun sortAndFilterFieldsOrderByColumnNames(fields: List<Field>, columnNames: List<String>): List<Field> {
     val res = mutableListOf<Field>()
     val nameFieldMap = mutableMapOf<String, Field>()
@@ -45,6 +55,21 @@ fun sortAndFilterFieldsOrderByColumnNames(fields: List<Field>, columnNames: List
     return res
 }
 
+/**
+ * Sort the fields by its name or column's name based on the [columnNames].
+ * If the name and column's name of the field is not in [columnNames], the field will not be in the result.
+ * If the name in [columnNames] does not match any field's name and any column's name,
+ * coracias will throw one [RuntimeException]
+ *
+ * Note:
+ *  If the class has the annotation [Entity], The [Column]'s name has greater priority than
+ *  field's name
+ *  It means if the one field <fa> and the other field <fb> meet fa's Column's name== fb.field's name
+ *  The result will contains fa other than fb unless ba also has annotation Column, and the column's name
+ *  is also in the [columnNames]
+ *  @param annFields all fields that have annotation [Column]
+ *  @see Column
+ */
 fun sortAndFilterFieldsOrderByColumnNames(
     annFields: List<Field>,
     fields: List<Field>,
@@ -76,6 +101,17 @@ fun sortAndFilterFieldsOrderByColumnNames(
 }
 
 
+/**
+ * get fields based on [columnNames]
+ *
+ * @return The first is the fields. The second is resColumnNames
+ * if [columnNames] is not null or empty, the resColumnNames will be the same as [columnNames]
+ *
+ * Note:
+ *  If the class has the annotation [Entity], The [Column]'s name has greater priority than
+ *  field's name
+ *  @see sortAndFilterFieldsOrderByColumnNames
+ */
 fun getCoraciasFields(clazz: Class<*>, columnNames: List<String>?): Pair<List<Field>, List<String>> {
     val isEntity = isJsr338Entity(clazz)
     val annFields: List<Field>

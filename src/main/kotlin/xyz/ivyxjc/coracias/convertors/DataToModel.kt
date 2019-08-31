@@ -9,13 +9,13 @@ import java.lang.reflect.Field
 
 
 interface DataToModel<T : Any> {
-    fun performConvert(list: List<T>, name: String, instructions: ExportInstructions): TableExportModel;
+    fun performConvert(list: List<T>, name: String, instructions: ExportInstructions): TableExportModel
     fun performConvert(
         list: List<T>,
         name: String,
         columnNames: List<String>?,
         instructions: ExportInstructions
-    ): TableExportModel;
+    ): TableExportModel
 }
 
 class DefaultDataToModel<T : Any> : DataToModel<T> {
@@ -39,7 +39,7 @@ class DefaultDataToModel<T : Any> : DataToModel<T> {
         //if columnNames is not null or empty, calculateColumnNames is equals to columnNames
         val calculateColumnNames = fieldsAndColumnNamesPair.second
 
-        val model = SimpleExportModel(list.size, fields.size);
+        val model = SimpleExportModel(list.size, fields.size)
         model.setTableName(name)
         model.setColumnNames(calculateColumnNames.toTypedArray())
 

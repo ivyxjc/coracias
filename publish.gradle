@@ -1,0 +1,44 @@
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'coracias'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'coracias'
+                url 'https://github.com/ivyxjc/coracias'
+
+                scm {
+                    connection 'scm:git:git@github.com:ivyxjc/coracias.git'
+                    developerConnection 'scm:git:git@github.com:ivyxjc/coracias.git'
+                    url 'https://github.com/ivyxjc/ivy-tools'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'ivyxjc'
+                        name 'ivyxjc'
+                        email 'ivyxjc1994@hotmail.com'
+                    }
+                }
+            }
+        }
+    }
+}

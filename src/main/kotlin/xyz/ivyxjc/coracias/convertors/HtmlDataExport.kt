@@ -2,12 +2,12 @@ package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.Constants
 import xyz.ivyxjc.coracias.CoraciasFormatter
-import xyz.ivyxjc.coracias.model.TableConvertModel
+import xyz.ivyxjc.coracias.model.TableExportModel
 
-class HtmlDataConvert : DataConvert {
+class HtmlDataExport : DataExport {
 
     override fun performConvert(
-        model: TableConvertModel,
+        model: TableExportModel,
         instructions: ExportInstructions,
         formatter: CoraciasFormatter
     ): String {

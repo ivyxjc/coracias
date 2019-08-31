@@ -1,6 +1,6 @@
 package xyz.ivyxjc.coracias.model
 
-interface TableConvertModel {
+interface TableExportModel {
     fun getTableName(): String
     fun getColumnCount(): Int
     fun getRowCount(): Int
@@ -18,7 +18,7 @@ interface ModelAction {
 /**
  * Not Thread-Safe
  */
-class SimpleConvertModel(private val rowNum: Int, private val columnNum: Int) : TableConvertModel, ModelAction {
+class SimpleExportModel(private val rowNum: Int, private val columnNum: Int) : TableExportModel, ModelAction {
 
     private val data = Array<Array<Any?>>(rowNum) {
         Array(columnNum) {

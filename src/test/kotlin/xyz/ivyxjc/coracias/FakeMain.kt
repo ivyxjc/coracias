@@ -2,8 +2,8 @@ package xyz.ivyxjc.coracias
 
 import org.apache.commons.lang3.RandomStringUtils
 import xyz.ivyxjc.coracias.convertors.ExportInstructions
-import xyz.ivyxjc.coracias.convertors.HtmlDataConvert
-import xyz.ivyxjc.coracias.model.SimpleConvertModel
+import xyz.ivyxjc.coracias.convertors.HtmlDataExport
+import xyz.ivyxjc.coracias.model.SimpleExportModel
 import xyz.ivyxjc.coracias.models.DataEntity
 import java.time.LocalDateTime
 import kotlin.math.abs
@@ -33,12 +33,12 @@ fun main() {
     val list = List(20) {
         buildRandomEntity()
     }
-    val model = SimpleConvertModel(20, 4)
+    val model = SimpleExportModel(20, 4)
     list.forEachIndexed { index, _ ->
         model.addRow(toModel(list[index]))
     }
     val columnNames = arrayOf("guid", "key", "value", "tradeDate")
-    val convert = HtmlDataConvert()
+    val convert = HtmlDataExport()
     model.setColumnNames(columnNames)
     model.setTableName("table")
     val res = convert.performConvert(model, ExportInstructions(), DefaultCoraciasFormatter())

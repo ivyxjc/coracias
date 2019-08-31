@@ -96,8 +96,7 @@ fun getCoraciasFields(clazz: Class<*>, columnNames: List<String>?): Pair<List<Fi
         if (columnNames == null || columnNames.isEmpty()) {
             val tmpColumnNames = mutableListOf<String>()
             fields.forEach {
-                val tmpAnn = it.getAnnotation(Column::class.java)
-                tmpColumnNames.add(tmpAnn.name)
+                tmpColumnNames.add(it.name)
             }
             Pair(fields, tmpColumnNames)
         } else {

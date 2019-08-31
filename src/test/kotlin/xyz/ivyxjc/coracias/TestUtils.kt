@@ -1,6 +1,7 @@
 package xyz.ivyxjc.coracias
 
 import org.apache.commons.lang3.RandomStringUtils
+import xyz.ivyxjc.coracias.models.DataBean
 import xyz.ivyxjc.coracias.models.DataEntity
 import java.lang.reflect.Field
 import java.time.LocalDate
@@ -58,4 +59,17 @@ fun buildRandomEntity(): DataEntity {
     res.officeCode = RandomStringUtils.random(20)
     return res
 }
+
+fun buildRandomBean(): DataBean {
+    val res = DataBean()
+    res.guid = abs(Random.nextLong())
+    res.key = RandomStringUtils.random(8)
+    res.value = RandomStringUtils.random(1000)
+    res.tradeDate = LocalDateTime.now()
+    res.cancelDate = LocalDate.now()
+    res.officeCode = RandomStringUtils.random(20)
+    return res
+}
+
+
 

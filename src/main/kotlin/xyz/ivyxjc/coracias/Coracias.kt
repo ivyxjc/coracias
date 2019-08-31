@@ -6,6 +6,10 @@ import xyz.ivyxjc.coracias.convertors.DefaultCoraciasDataToModel
 import xyz.ivyxjc.coracias.convertors.HtmlCoraciasExport
 import xyz.ivyxjc.coracias.strategy.*
 
+/**
+ * The entry point of th Coracias
+ * It use the Builder design pattern to customize the formatter, strategy, dataToModel and coraciasExport
+ */
 class Coracias<T : Any>(private val builder: Builder<T>) {
 
     fun format(data: List<T>, tableName: String): String {

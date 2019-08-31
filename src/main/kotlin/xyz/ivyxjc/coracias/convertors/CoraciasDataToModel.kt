@@ -7,7 +7,11 @@ import xyz.ivyxjc.coracias.model.DefaultCoraciasExportModel
 import xyz.ivyxjc.coracias.strategy.CoraciasInstructions
 import java.lang.reflect.Field
 
-
+/**
+ * Convert data into [CoraciasExportModel].
+ * @see CoraciasInstructions
+ * @see CoraciasDataTypeStrategy
+ */
 interface CoraciasDataToModel<T : Any> {
     fun performConvert(list: List<T>, name: String, instructions: CoraciasInstructions): CoraciasExportModel
     fun performConvert(

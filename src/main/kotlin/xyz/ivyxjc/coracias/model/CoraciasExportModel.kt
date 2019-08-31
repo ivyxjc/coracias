@@ -2,6 +2,10 @@ package xyz.ivyxjc.coracias.model
 
 import xyz.ivyxjc.coracias.GenericDataType
 
+
+/***
+ * CoraciasExportModel is the data container. It will be used in the process of export.
+ */
 interface CoraciasExportModel {
     fun getTableName(): String
     fun getColumnCount(): Int
@@ -11,6 +15,10 @@ interface CoraciasExportModel {
     fun getGenericType(rowIndex: Int, columnIndex: Int): GenericDataType
 }
 
+/**
+ * AbstractModel enrich the CoraciasExportModel with more method.
+ * So coracias can put data into the data container.
+ */
 abstract class AbstractModel : CoraciasExportModel {
     abstract fun addRow(row: Pair<Array<Any?>, Array<GenericDataType>>)
     abstract fun setTableName(name: String)

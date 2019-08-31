@@ -1,7 +1,12 @@
 package xyz.ivyxjc.coracias
 
+import org.apache.commons.lang3.RandomStringUtils
+import xyz.ivyxjc.coracias.models.DataEntity
 import java.lang.reflect.Field
+import java.time.LocalDateTime
 import javax.persistence.Column
+import kotlin.math.abs
+import kotlin.random.Random
 
 fun compareTwoList(fs1: List<Field>, fs2: List<Field>): Boolean {
     if (fs1.size != fs2.size) {
@@ -40,5 +45,15 @@ fun fieldAndColumnInSameOrder(fs1: List<Field>, columnNames: List<String>): Bool
         }
         return true
     }
-
 }
+
+fun buildRandomEntity(): DataEntity {
+    val res = DataEntity()
+    res.guid = abs(Random.nextLong())
+    res.key = RandomStringUtils.random(8)
+    res.value = RandomStringUtils.random(8)
+    res.tradeDate = LocalDateTime.now()
+    res.officeCode = RandomStringUtils.random(20)
+    return res
+}
+

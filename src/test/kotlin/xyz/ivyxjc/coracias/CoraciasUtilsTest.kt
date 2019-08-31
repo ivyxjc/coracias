@@ -21,7 +21,7 @@ class CoraciasUtilsTest {
     @Test
     fun testGetCoraciasFields() {
         val fields = getCoraciasFields(DataEntity::class.java, null)
-        Assert.assertFalse(compareTwoList(fields, DataEntity::class.java.declaredFields.toList()))
+        Assert.assertFalse(compareTwoList(fields.first, DataEntity::class.java.declaredFields.toList()))
     }
 
     @Test
@@ -29,7 +29,7 @@ class CoraciasUtilsTest {
         val columnNames = mutableListOf<String>()
         columnNames.add("GUID")
         columnNames.add("tradeDate")
-        val fields = getCoraciasFields(DataEntity::class.java, columnNames)
+        val fields = getCoraciasFields(DataEntity::class.java, columnNames).first
         Assert.assertTrue(fields[0].name == "guid")
         Assert.assertTrue(fields[1].name == "tradeDate")
     }
@@ -43,7 +43,7 @@ class CoraciasUtilsTest {
         columnNames.add("VALUE")
         columnNames.add("tradeDate")
         val fields = getCoraciasFields(DataEntity::class.java, columnNames)
-        Assert.assertTrue(fieldAndColumnInSameOrder(fields, columnNames))
+        Assert.assertTrue(fieldAndColumnInSameOrder(fields.first, columnNames))
     }
 }
 

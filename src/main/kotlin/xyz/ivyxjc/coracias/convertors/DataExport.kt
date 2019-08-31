@@ -1,6 +1,7 @@
 package xyz.ivyxjc.coracias.convertors
 
 import xyz.ivyxjc.coracias.CoraciasFormatter
+import xyz.ivyxjc.coracias.DefaultCoraciasFormatter
 import xyz.ivyxjc.coracias.model.TableExportModel
 
 
@@ -14,4 +15,6 @@ interface DataExport {
 
 class ExportInstructions {
     var createHeader = true
+    var formatter = DefaultCoraciasFormatter()
+    var dataTypeStrategy = DefaultDataTypeStrategy()
 }

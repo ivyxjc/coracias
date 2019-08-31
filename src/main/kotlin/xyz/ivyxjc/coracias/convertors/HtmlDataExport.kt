@@ -26,13 +26,15 @@ class HtmlDataExport : DataExport {
             for (columnIndex in 0 until model.getColumnCount()) {
                 var objStr: String? = null
                 val obj = model.getValue(rowIndex, columnIndex)
+                val dataType = model.getGenericType(rowIndex, columnIndex)
                 objStr = formatter.format(obj)
                 val isNoWrap = if (objStr == null) false else objStr.length < 100
 
-                sb.append(" <td")
+                sb.append("<td")
                 if (isNoWrap) {
                     sb.append(" nowrap")
                 }
+                sb.append(" class=\"${dataType.value}\"")
                 sb.append(">")
                 sb.append(objStr)
                 sb.append("</td>\n")

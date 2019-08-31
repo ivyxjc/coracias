@@ -76,22 +76,32 @@ fun sortAndFilterFieldsOrderByColumnNames(
 }
 
 
-fun getCoraciasFields(clazz: Class<*>, columnNames: List<String>?): List<Field> {
+fun getCoraciasFields(clazz: Class<*>, columnNames: List<String>?): Pair<List<Field>, List<String>> {
     val isEntity = isJsr338Entity(clazz)
     val annFields: List<Field>
     val fields = clazz.declaredFields.toList()
     return if (isEntity) {
         annFields = getFieldsByAnnotation(clazz, Column::class.java)
         if (columnNames == null || columnNames.isEmpty()) {
-            annFields
+            val tmpColumnNames = mutableListOf<String>()
+            annFields.forEach {
+                val tmpAnn = it.getAnnotation(Column::class.java)
+                tmpColumnNames.add(tmpAnn.name)
+            }
+            Pair(annFields, tmpColumnNames)
         } else {
-            sortAndFilterFieldsOrderByColumnNames(annFields, fields, columnNames)
+            Pair(sortAndFilterFieldsOrderByColumnNames(annFields, fields, columnNames), columnNames)
         }
     } else {
         if (columnNames == null || columnNames.isEmpty()) {
-            fields
+            val tmpColumnNames = mutableListOf<String>()
+            fields.forEach {
+                val tmpAnn = it.getAnnotation(Column::class.java)
+                tmpColumnNames.add(tmpAnn.name)
+            }
+            Pair(fields, tmpColumnNames)
         } else {
-            sortAndFilterFieldsOrderByColumnNames(fields, columnNames)
+            Pair(sortAndFilterFieldsOrderByColumnNames(fields, columnNames), columnNames)
         }
     }
 }

@@ -1,36 +1,46 @@
 package xyz.ivyxjc.coracias.model
 
+import xyz.ivyxjc.coracias.GenericDataType
+
 interface TableExportModel {
     fun getTableName(): String
     fun getColumnCount(): Int
     fun getRowCount(): Int
     fun getValue(rowIndex: Int, columnIndex: Int): Any?
     fun getColumnName(columnIndex: Int): String
+    fun getGenericType(rowIndex: Int, columnIndex: Int): GenericDataType
 }
 
-interface ModelAction {
-    fun addRow(row: Array<Any?>)
-    fun setTableName(name: String)
-    fun setColumnNames(columnNames: Array<String>)
+abstract class AbstractModel : TableExportModel {
+    abstract fun addRow(row: Pair<Array<Any?>, Array<GenericDataType>>)
+    abstract fun setTableName(name: String)
+    abstract fun setColumnNames(columnNames: Array<String>)
 }
 
 
 /**
  * Not Thread-Safe
  */
-class SimpleExportModel(private val rowNum: Int, private val columnNum: Int) : TableExportModel, ModelAction {
+class SimpleExportModel(private val rowNum: Int, private val columnNum: Int) : AbstractModel() {
 
     private val data = Array<Array<Any?>>(rowNum) {
         Array(columnNum) {
             null
         }
     }
+
+    private val dataTypes = Array(rowNum) {
+        Array(columnNum) {
+            GenericDataType.LITERAL
+        }
+    }
     private lateinit var tableName: String
     private lateinit var columnNames: Array<String>
     private var count = 0
 
-    override fun addRow(row: Array<Any?>) {
-        data[count] = row
+    override fun addRow(rowPair: Pair<Array<Any?>, Array<GenericDataType>>) {
+        data[count] = rowPair.first
+        dataTypes[count] = rowPair.second
         count++
     }
 
@@ -64,5 +74,9 @@ class SimpleExportModel(private val rowNum: Int, private val columnNum: Int) : T
 
     override fun getColumnName(columnIndex: Int): String {
         return columnNames[columnIndex]
+    }
+
+    override fun getGenericType(rowIndex: Int, columnIndex: Int): GenericDataType {
+        return dataTypes[rowIndex][columnIndex]
     }
 }
